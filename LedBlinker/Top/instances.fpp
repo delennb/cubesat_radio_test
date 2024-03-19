@@ -91,6 +91,7 @@ module LedBlinker {
     queue size Default.QUEUE_SIZE \
     stack size Default.STACK_SIZE \
     priority 95
+
   # ----------------------------------------------------------------------
   # Queued component instances
   # ----------------------------------------------------------------------

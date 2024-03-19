@@ -19,15 +19,3 @@ set(SOURCE_FILES
 # )
 
 register_fprime_module()
-set(UT_SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/Led.fpp"
-)
-set(UT_AUTO_HELPERS ON) # Additional Unit-Test autocoding
-set(UT_SOURCE_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/Led.fpp"
-    "${CMAKE_CURRENT_LIST_DIR}/test/ut/LedTestMain.cpp"
-    "${CMAKE_CURRENT_LIST_DIR}/test/ut/LedTester.cpp"
-)
-set(UT_MOD_DEPS Os)
-set(UT_AUTO_HELPERS ON) # Additional Unit-Test autocoding
-register_fprime_ut()

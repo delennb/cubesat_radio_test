@@ -1,6 +1,6 @@
 # Components::Led
 
-Component
+Component to blink an LED driven by a rate group
 
 ## Usage Examples
 Add usage examples here

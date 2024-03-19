@@ -15,6 +15,9 @@
 // Used for 1Hz synthetic cycling
 #include <Os/Mutex.hpp>
 
+//DELENN ADDED
+#include <string>
+
 // Allows easy reference to objects in FPP/autocoder required namespaces
 using namespace LedBlinker;
 
@@ -158,6 +161,12 @@ void setupTopology(const TopologyState& state) {
     startTasks(state);
     // Initialize socket communication if and only if there is a valid specification
     if (state.hostname != nullptr && state.port != 0) {
+        Fw::Logger::logMsg("DELENN ADDED: hostname: ");
+        Fw::Logger::logMsg(state.hostname);
+        Fw::Logger::logMsg("\n hostport: ");
+        Fw::Logger::logMsg(std::to_string(state.port).c_str());
+        Fw::Logger::logMsg("\nDELENN END\n");
+
         Os::TaskString name("ReceiveTask");
         // Uplink is configured for receive so a socket task is started
         comDriver.configure(state.hostname, state.port);
@@ -190,6 +199,7 @@ void stopSimulatedCycle() {
     cycleFlag = false;
     cycleLock.unLock();
 }
+
 
 void teardownTopology(const TopologyState& state) {
     // Autocoded (active component) task clean-up. Functions provided by topology autocoder.

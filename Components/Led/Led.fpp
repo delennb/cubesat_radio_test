@@ -1,27 +1,13 @@
 module Components {
-    @ Component
+    @ Component to blink an LED driven by a rate group
     active component Led {
 
+        # One async command/port is required for active components
+        # This should be overridden by the developers with a useful command/port
         @ Command to turn on or off the blinking LED
         async command BLINKING_ON_OFF(
             on_off: Fw.On @< Indicates whether the blinking should be on or off
         )
-
-        ##############################################################################
-        #### Uncomment the following examples to start customizing your component ####
-        ##############################################################################
-
-        # @ Example async command
-        # async command COMMAND_NAME(param_name: U32)
-
-        @ Telemetry channel to report blinking state.
-        telemetry BlinkingState: Fw.On
-        @ Telemetry channel to report on the number of transitions
-        telemetry LedTransitions: U64
-
-        # @ Example event
-        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
-
         @ Indicates we received an invalid argument.
         event InvalidBlinkArgument(badArgument: Fw.On) \
             severity warning low \
@@ -32,22 +18,49 @@ module Components {
             severity activity high \
             format "Set blinking state to {}."
 
-        @ Reports the blink interval set
+        @ Delenn Added task 1
         event BlinkIntervalSet(interval: U32) \
             severity activity high \
             format "LED blink interval set to {}"
 
-        @ Reports the blink state
+        @ Delenn Added task 2
         event LedState(on_off: Fw.On) \
             severity activity low \
             format "LED is {}"
 
-        # @ Example port: receiving calls from the rate group
-        # sync input port run: Svc.Sched
+        @ Telemetry channel to report blinking state.
+        telemetry BlinkingState: Fw.On
+
+        @ Delenn Added Part 2 task 1
+        telemetry LedTransitions: U64
 
         @ Blinking interval in rate group ticks
         param BLINK_INTERVAL: U32
 
+        @ Port receiving calls from the rate group
+        sync input port run: Svc.Sched
+
+        @ Port sending calls to the GPIO driver
+        output port gpioSet: Drv.GpioWrite
+
+        ##############################################################################
+        #### Uncomment the following examples to start customizing your component ####
+        ##############################################################################
+
+        # @ Example async command
+        # async command COMMAND_NAME(param_name: U32)
+
+        # @ Example telemetry counter
+        # telemetry ExampleCounter: U64
+
+        # @ Example event
+        # event ExampleStateEvent(example_state: Fw.On) severity activity high id 0 format "State set to {}"
+
+        # @ Example port: receiving calls from the rate group
+        # sync input port run: Svc.Sched
+
+        # @ Example parameter
+        # param PARAMETER_NAME: U32
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
@@ -79,10 +92,5 @@ module Components {
         @Port to set the value of a parameter
         param set port prmSetOut
 
-        @ Port receiving calls from the rate group
-        sync input port run: Svc.Sched
-
-        @ Port sending calls to the GPIO driver
-        output port gpioSet: Drv.GpioWrite
     }
 }
