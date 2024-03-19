@@ -169,8 +169,16 @@ void setupTopology(const TopologyState& state) {
 
         Os::TaskString name("ReceiveTask");
         // Uplink is configured for receive so a socket task is started
-        comDriver.configure(state.hostname, state.port);
+        // comDriver.configure(state.hostname, state.port); // ORIGINAL - DELENN COMMENTED OUT
+        std::string testhost = "localhost"; // DELENN ADDED (Should it be 0.0.0.0)
+        comDriver.configure(testhost.c_str(), 12600); // DELENN ADDED - TEST HOST AND PORT
         comDriver.startSocketTask(name, true, COMM_PRIORITY, Default::STACK_SIZE);
+
+        Fw::Logger::logMsg("DELENN ADDED: hostname: ");
+        Fw::Logger::logMsg(testhost.c_str());
+        Fw::Logger::logMsg("\n hostport: ");
+        Fw::Logger::logMsg(std::to_string(12600).c_str());
+        Fw::Logger::logMsg("\nDELENN END\n");
     }
 }
 
