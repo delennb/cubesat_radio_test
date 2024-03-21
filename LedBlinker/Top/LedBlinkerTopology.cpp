@@ -17,6 +17,7 @@
 
 //DELENN ADDED
 #include <string>
+#include <iostream>
 
 // Allows easy reference to objects in FPP/autocoder required namespaces
 using namespace LedBlinker;
@@ -170,15 +171,28 @@ void setupTopology(const TopologyState& state) {
         Os::TaskString name("ReceiveTask");
         // Uplink is configured for receive so a socket task is started
         // comDriver.configure(state.hostname, state.port); // ORIGINAL - DELENN COMMENTED OUT
-        std::string testhost = "localhost"; // DELENN ADDED (Should it be 0.0.0.0)
-        comDriver.configure(testhost.c_str(), 12600); // DELENN ADDED - TEST HOST AND PORT
+        // std::string testhost = "localhost"; // DELENN ADDED (Should it be 0.0.0.0)
+        // std::string testhost = "localhost";
+        // state.hostname = testhost.c_str();
+        // state.port = 12600;
+        // comDriver.configure(state.hostname, state.port);
+        comDriver.configure(state.hostname, 12600);
+        // comDriver.configure(testhost.c_str(), 12600); // DELENN ADDED - TEST HOST AND PORT
         comDriver.startSocketTask(name, true, COMM_PRIORITY, Default::STACK_SIZE);
 
-        Fw::Logger::logMsg("DELENN ADDED: hostname: ");
-        Fw::Logger::logMsg(testhost.c_str());
-        Fw::Logger::logMsg("\n hostport: ");
-        Fw::Logger::logMsg(std::to_string(12600).c_str());
-        Fw::Logger::logMsg("\nDELENN END\n");
+        // Fw::Logger::logMsg("DELENN ADDED: hostname: ");
+        // Fw::Logger::logMsg(testhost.c_str());
+        // Fw::Logger::logMsg("\n hostport: ");
+        // Fw::Logger::logMsg(std::to_string(12600).c_str());
+        // Fw::Logger::logMsg("\nDELENN END\n");
+
+        // std::cout << "DELENN ADDED: hostname: " << std::endl;
+        // std::cout << testhost.c_str() << std::endl;
+        // std::cout << "hostport: ";
+        // std::cout << std::to_string(12600).c_str() << std::endl;
+        // std::cout << "DELENN END" << std::endl;
+
+
     }
 }
 

@@ -12,6 +12,8 @@
 // Used for printf functions
 #include <cstdlib>
 
+#include<string>
+
 /**
  * \brief print command line help message
  *
@@ -73,8 +75,11 @@ int main(int argc, char* argv[]) {
     }
     // Object for communicating state to the reference topology
     LedBlinker::TopologyState inputs;
-    inputs.hostname = hostname;
-    inputs.port = port_number;
+    std::string testhostname= "0.0.0.0";
+    inputs.hostname = testhostname.c_str();
+    inputs.port = 12600;
+    // inputs.hostname = hostname;
+    // inputs.port = port_number;
 
     // Setup program shutdown via Ctrl-C
     signal(SIGINT, signalHandler);
